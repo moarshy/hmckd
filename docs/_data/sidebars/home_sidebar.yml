@@ -12,6 +12,15 @@ entries:
     - output: web,pdf
       title: Understanding the data - EDA
       url: eda.html
+    - output: web,pdf
+      title: Tabular Model
+      url: tabmodel.html
+    - output: web,pdf
+      title: SAINT TabModel
+      url: sainttabmodel.html
+    - output: web,pdf
+      title: Conclusion
+      url: conclusion.html
     output: web
     title: hmckd
   output: web
