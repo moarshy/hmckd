@@ -1,6 +1,9 @@
 {
   "hmckd": {
     "Overview": "/",
-    "Understanding the data - EDA": "eda.html"
+    "Understanding the data - EDA": "eda.html",
+    "Tabular Model": "tabmodel.html",
+    "SAINT TabModel": "sainttabmodel.html",
+    "Conclusion": "conclusion.html"
   }
 }
