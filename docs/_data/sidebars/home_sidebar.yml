@@ -21,6 +21,9 @@ entries:
     - output: web,pdf
       title: Conclusion
       url: conclusion.html
+    - output: web,pdf
+      title: Add-on:Graph Approach
+      url: graphnn.html
     output: web
     title: hmckd
   output: web

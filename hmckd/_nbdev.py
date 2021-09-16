@@ -44,6 +44,7 @@ index = {"get_features": "00_eda.ipynb",
 modules = ["utils.py",
            "utils_tab.py",
            "utils_saint.py",
+           "utils_gnn.py",
            "saint.py"]
 
 doc_url = "https://moarshy.github.io/hmckd/"
