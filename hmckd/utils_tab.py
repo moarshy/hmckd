@@ -3,7 +3,7 @@
 __all__ = []
 
 # Internal Cell
-
+from fastai.tabular.all import *
 from .utils import get_features, baseline_df, get_tabpandas_dls, med2como
 
 def timept_df(features:dict, timept=200, maxtimept=650):

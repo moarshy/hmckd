@@ -12,10 +12,39 @@ index = {"get_features": "00_eda.ipynb",
          "med2como": "00_eda.ipynb",
          "timept_df": "01_tabmodel.ipynb",
          "prepare_df_ntimepoint": "01_tabmodel.ipynb",
-         "prepare_df_firstnpt": "01_tabmodel.ipynb"}
+         "prepare_df_firstnpt": "01_tabmodel.ipynb",
+         "embed_data_mask": "02_sainttabmodel.ipynb",
+         "mixup_data": "02_sainttabmodel.ipynb",
+         "add_noise": "02_sainttabmodel.ipynb",
+         "data_prep": "02_sainttabmodel.ipynb",
+         "data_prep_fnp": "02_sainttabmodel.ipynb",
+         "pt_contrastive": "02_sainttabmodel.ipynb",
+         "get_saint_model": "02_sainttabmodel.ipynb",
+         "get_saint_3pt_dls": "02_sainttabmodel.ipynb",
+         "get_saint_fnpt_dls": "02_sainttabmodel.ipynb",
+         "pt_train_loop": "02_sainttabmodel.ipynb",
+         "training": "02_sainttabmodel.ipynb",
+         "test": "02_sainttabmodel.ipynb",
+         "exists": "Untitled0.ipynb",
+         "default": "Untitled0.ipynb",
+         "ff_encodings": "Untitled0.ipynb",
+         "Residual": "Untitled0.ipynb",
+         "PreNorm": "Untitled0.ipynb",
+         "GEGLU": "Untitled0.ipynb",
+         "FeedForward": "Untitled0.ipynb",
+         "Attention": "Untitled0.ipynb",
+         "RowColTransformer": "Untitled0.ipynb",
+         "Transformer": "Untitled0.ipynb",
+         "MLP": "Untitled0.ipynb",
+         "simple_MLP": "Untitled0.ipynb",
+         "TabAttention": "Untitled0.ipynb",
+         "sep_MLP": "Untitled0.ipynb",
+         "SAINT": "Untitled0.ipynb"}
 
 modules = ["utils.py",
-           "utils_tab.py"]
+           "utils_tab.py",
+           "utils_saint.py",
+           "saint.py"]
 
 doc_url = "https://moarshy.github.io/hmckd/"
 
