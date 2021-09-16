@@ -9,9 +9,13 @@ index = {"get_features": "00_eda.ipynb",
          "rf": "00_eda.ipynb",
          "rf_feat_importance": "00_eda.ipynb",
          "plot_fi": "00_eda.ipynb",
-         "med2como": "00_eda.ipynb"}
+         "med2como": "00_eda.ipynb",
+         "timept_df": "01_tabmodel.ipynb",
+         "prepare_df_ntimepoint": "01_tabmodel.ipynb",
+         "prepare_df_firstnpt": "01_tabmodel.ipynb"}
 
-modules = ["utils.py"]
+modules = ["utils.py",
+           "utils_tab.py"]
 
 doc_url = "https://moarshy.github.io/hmckd/"
 
