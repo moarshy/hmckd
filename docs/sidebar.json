@@ -4,6 +4,7 @@
     "Understanding the data - EDA": "eda.html",
     "Tabular Model": "tabmodel.html",
     "SAINT TabModel": "sainttabmodel.html",
-    "Conclusion": "conclusion.html"
+    "Conclusion": "conclusion.html",
+    "Add-on:Graph Approach": "graphnn.html"
   }
 }
