@@ -37,15 +37,13 @@ nb_path: "nbs/03_conclusion.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.-Defining-Inputs">1. Defining Inputs<a class="anchor-link" href="#1.-Defining-Inputs"> </a></h3><ol>
-<li>Inputs for our <code>n_setpoints</code> models</li>
-</ol>
+<h3 id="1.-Defining-Inputs">1. Defining Inputs<a class="anchor-link" href="#1.-Defining-Inputs"> </a></h3><p><strong>Inputs for our <code>n_setpoints</code> models</strong></p>
 <ul>
 <li>For features, we are given demographic information, medication information and lab measurements</li>
 <li>lab measurements occur at irregular timepoint across the patients</li>
 <li>also number of lab measurements given differ from patient to patient </li>
 <li>For our n_setpoint models, the contribution from this work defines how we can prepare the inputs for TabularModel despite the challenges posed by the above two points</li>
-<li>for this, we define/set timepoints closes to which to take lab meaurements for our inputs</li>
+<li>in buildinng our inputs, we define/set timepoints closes to which to take lab meaurements for our inputs</li>
 <li>we can define <code>n</code> number of timepoints</li>
 <li>Our inputs <blockquote><ul>
 <li>are in the form of tabular input where each column is a feature (since we are using TabularModel)</li>
@@ -257,9 +255,7 @@ nb_path: "nbs/03_conclusion.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li><code>first_n_points</code> input</li>
-</ol>
+<p><strong>Inputs for our <code>first_n_points</code> models</strong></p>
 <ul>
 <li>This method is very similar to <code>n_setpoint</code> except it take the first n_points to be used as the feature</li>
 <li>below is an example of this method</li>
@@ -456,29 +452,22 @@ nb_path: "nbs/03_conclusion.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>The good and bad of the two methods</li>
-</ol>
+<p><strong>The good and bad of the two methods</strong></p>
 <ul>
 <li>our first method (n_setpoits method) <blockquote><ul>
-<li>the good:avoids <code>nan</code> values&gt; - the bad:in some cases uses the same measurement for more than one point</li>
+<li>the good:avoids <code>nan</code> values&gt; - the bad:in some cases, this method uses the same measurement for more than one point</li>
 </ul>
 </blockquote>
 </li>
 <li>our second method (first_n_points)<blockquote><ul>
-<li>the good:doesn't repeat the same value&gt; - the bad:could result in many <code>nan</code> values</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<ol>
-<li><p>Remedies for the <code>nan</code> values</p>
-<blockquote><ul>
+<li>the good:doesn't repeat the same measurement for different points&gt; - the bad:could result in many <code>nan</code> values
+<strong>Remedies for the <code>nan</code> values</strong></li>
 <li>SAINT TabularModel uses mask to force the transformer to make predicitons without <code>nan</code> values</li>
 </ul>
 </blockquote>
 </li>
-<li><p>Other inputs - medication data</p>
+</ul>
+<p><strong>Other inputs - medication data</strong></p>
 <blockquote><ul>
 <li>as part of this challenge, I engaged a Clinical Pharmacist who works at the Kuala Lumpur General Hospital's Nephrology Inpatient Unit</li>
 <li>it became apparent from our discussion that medication data for this task was important </li>
@@ -486,8 +475,6 @@ nb_path: "nbs/03_conclusion.ipynb"
 <li>in our trials with medication data, results were not helpful likely because of the lack of data points to generalize</li>
 </ul>
 </blockquote>
-</li>
-</ol>
 
 </div>
 </div>
@@ -517,7 +504,7 @@ nb_path: "nbs/03_conclusion.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3.-Conclusion">3. Conclusion<a class="anchor-link" href="#3.-Conclusion"> </a></h2>
+<h3 id="3.-Conclusion">3. Conclusion<a class="anchor-link" href="#3.-Conclusion"> </a></h3>
 </div>
 </div>
 </div>
