@@ -33,7 +33,7 @@ def timept_df(features:dict, timept=200, maxtimept=650):
     return d
 
 
-def prepare_df_ntimepoint(features, train_df, maxtimept, timepoints:list):
+def prepare_df_nsetpoints(features, train_df, maxtimept, timepoints:list):
 
     "prepares a single dataframe for ntimepoint model based on given time points"
 
@@ -52,7 +52,7 @@ def prepare_df_ntimepoint(features, train_df, maxtimept, timepoints:list):
     return bdf, cont_cols
 
 
-def prepare_df_firstnpt(features, train_df, n_points=6, maxtimept=650):
+def prepare_df_firstnpoints(features, train_df, n_points=6, maxtimept=650):
     'prepares dataframe for first n-points model'
     tups = []
     feats = ['hgb', 'ldl', 'glucose', 'creatinine', 'sbp', 'dbp']

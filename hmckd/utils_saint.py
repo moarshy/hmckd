@@ -168,13 +168,13 @@ def get_saint_model(config,
                 y_dim = y_dim)
 
 
-def get_saint_3pt_dls(fold, train_df, test_df, tp1, tp2, maxtimept, bs):
+def get_saint_nsp_dls(fold, train_df, test_df, tp1, tp2, maxtimept, bs):
     features = get_features('data/dataScienceTask/')
     cat_names = ['race', 'gender']
     y_names = 'Stage_Progress'
 
-    df, cont_names = prepare_df_ntimepoint(features, train_df, maxtimept, [tp1, tp2])
-    test_df, cont_names = prepare_df_ntimepoint(features, test_df, maxtimept, [tp1, tp2])
+    df, cont_names = prepare_df_nsetpoints(features, train_df, maxtimept, [tp1, tp2])
+    test_df, cont_names = prepare_df_nsetpoints(features, test_df, maxtimept, [tp1, tp2])
 
     procs = [Categorify, FillMissing(add_col=False), Normalize]
 
@@ -193,15 +193,15 @@ def get_saint_3pt_dls(fold, train_df, test_df, tp1, tp2, maxtimept, bs):
     return dls, test_dl, tabdf, cat_dims, num_continuous, continuous_mean_std, y_dim
 
 
-def get_saint_fnpt_dls(fold, train_df, test_df, n_tp, maxtimept, bs):
+def get_saint_fnp_dls(fold, train_df, test_df, n_tp, maxtimept, bs):
     features = get_features('data/dataScienceTask/')
     cat_names = ['race', 'gender']
     y_names = 'Stage_Progress'
 
-    df, cont_names = prepare_df_firstnpt(features, train_df, n_tp, maxtimept)
-    test_df, cont_names = prepare_df_firstnpt(features, test_df, n_tp, maxtimept)
+    df, cont_names = prepare_df_firstnpoints(features, train_df, n_tp, maxtimept)
+    test_df, cont_names = prepare_df_firstnpoints(features, test_df, n_tp, maxtimept)
     constants = {k:1000. for k in cont_names}
-    procs = [Categorify, Normalize] #, FillMissing(FillStrategy.constant, False, constants)]
+    procs = [Categorify, Normalize]
 
     dls, tabdf = get_tabpandas_dls(fold, df, procs, cat_names, cont_names, y_names, bs)
     test_dl = dls.test_dl(test_df)
