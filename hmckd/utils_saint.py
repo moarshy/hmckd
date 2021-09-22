@@ -4,6 +4,9 @@ __all__ = []
 
 # Internal Cell
 from fastai.tabular.all import *
+from .utils import get_features, baseline_df, get_tabpandas_dls, med2como
+from .utils_tab import prepare_df_nsetpoints, prepare_df_firstnpoints
+from .saint import SAINT
 import torch.optim as optim
 
 # Internal Cell
@@ -75,10 +78,13 @@ def add_noise(x_categ,x_cont, noise_params = {'noise_type' : ['cutmix'],'lambda'
     elif noise_params['noise_type'] == 'gauss':
         print("yet to write this")
 
-#helper functions
+
 def data_prep(data, prob):
+
     'given a batch of data from fastai dataloader prepares the necessary input'
-    if prob == '3pt':
+    'prob first_n_points->fnpt, n_setpoints-->nspt'
+
+    if prob == 'nspt':
         x_categ = data[0]
         x_cont = data[1]
         y = data[2]
@@ -92,7 +98,7 @@ def data_prep(data, prob):
         cat_mask = tensor(cat_mask).int()
         con_mask = tensor(con_mask).int()
 
-    elif prob == 'fnp':
+    elif prob == 'fnpt':
         x_categ = data[0]
         x_cont = data[1]
         y = data[2]
@@ -106,14 +112,6 @@ def data_prep(data, prob):
 
         cat_mask = tensor(cat_mask).int()
         con_mask = tensor(con_mask).int()
-
-    return x_categ, x_cont, cat_mask, con_mask
-
-
-def data_prep_fnp(data):
-    'given a batch of data from fastai dataloader prepares the necessary input'
-
-
 
     return x_categ, x_cont, cat_mask, con_mask
 
@@ -150,7 +148,7 @@ def get_saint_model(config,
                     cat_dims,
                     num_continuous,
                     continuous_mean_std,
-                    y_sim):
+                    y_dim):
 
     return SAINT(categories = tuple(cat_dims),
                 num_continuous = num_continuous,
@@ -174,7 +172,7 @@ def get_saint_nsp_dls(fold, train_df, test_df, tp1, tp2, maxtimept, bs):
     y_names = 'Stage_Progress'
 
     df, cont_names = prepare_df_nsetpoints(features, train_df, maxtimept, [tp1, tp2])
-    test_df, cont_names = prepare_df_nsetpoints(features, test_df, maxtimept, [tp1, tp2])
+    test_df, _ = prepare_df_nsetpoints(features, test_df, maxtimept, [tp1, tp2])
 
     procs = [Categorify, FillMissing(add_col=False), Normalize]
 
@@ -223,7 +221,7 @@ def pt_train_loop(dls, model, config):
     pt_aug_dict = {'noise_type' : config['pt_aug'],
                   'lambda' : config['pt_aug_lam'] }
 
-    criterion = nn.CrossEntropyLoss().to(device)
+    criterion = nn.CrossEntropyLoss()
     criterion1 = nn.CrossEntropyLoss()
     criterion2 = nn.MSELoss()
     optimizer = optim.AdamW(model.parameters(),lr=config['lr'])
@@ -273,11 +271,17 @@ def pt_train_loop(dls, model, config):
         print(f'Epoch: {epoch}, Running Loss: {running_loss/len(dls.train):.4f}')
 
 
-def training(dls, model, config, output_fn, prob):
+def training_saint(dls,
+                   model,
+                   config,
+                   cat_dims,
+                   output_fn,
+                   prob):
+
     optimizer = optim.AdamW(model.parameters(),lr=config['lr'])
 
     #weight=tensor([0.67, 1.33])
-    criterion = nn.CrossEntropyLoss().to(device)
+    criterion = nn.CrossEntropyLoss()
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=1e-1)
     best_acc = 0
     for epoch in range(config['epochs']):
@@ -310,8 +314,8 @@ def training(dls, model, config, output_fn, prob):
         model.eval()
         running_vloss = 0.0
         m = nn.Softmax(dim=1)
-        y_test = torch.empty(0).to(device)
-        y_pred = torch.empty(0).to(device)
+        y_test = torch.empty(0)
+        y_pred = torch.empty(0)
 
         with torch.no_grad():
             for data in dls.valid:
@@ -339,10 +343,10 @@ def training(dls, model, config, output_fn, prob):
         model.train()
 
 
-def test(test_dl, prob):
+def test_saint(test_dl, model, prob):
     model.eval()
-    y_test = torch.empty(0).to(device)
-    y_pred = torch.empty(0).to(device)
+    y_test = torch.empty(0)
+    y_pred = torch.empty(0)
 
     with torch.no_grad():
         for data in test_dl:
